@@ -1,50 +1,101 @@
-const path = require('path');
-const webpack = require('webpack');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
-
-const dev = process.env.NODE_ENV !== 'production';
-
-const HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
-  template: path.join(__dirname, '/src/index.html'),
-  filename: 'index.html',
-  inject: 'body',
-});
-
-const DefinePluginConfig = new webpack.DefinePlugin({
-  'process.env.NODE_ENV': JSON.stringify('production'),
-});
+const path = require("path");
+const webpack = require("webpack");
+const HtmlWebPackPlugin = require("html-webpack-plugin");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
-  entry: ['@babel/polyfill', 'whatwg-fetch', path.join(__dirname, '/src/index.jsx')],
+  entry: ['@babel/polyfill', './src/index.js'],
+  context: __dirname,
+  target: "web",
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "bundle.js",
+    chunkFilename: '[name].js'
+  },
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.js$/,
         exclude: /node_modules/,
-        loaders: ['babel-loader'],
+        use: {
+          loader: "babel-loader"
+        }
       },
       {
-        test: /\.scss$/,
-        loader: 'style-loader!css-loader!sass-loader',
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          { "loader": "file-loader",
+          options: {
+            name: '[name].[ext]',
+          }}
+        ]
       },
       {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        use: [
+          { "loader": "file-loader",
+          options: {
+            name: '[name].[ext]',
+          }}
+        ]
+      },
+      {
+        test: /\.(css|scss)$/,
+        use: [{
+          loader: "style-loader"
         },
-      },
-    ],
+        MiniCssExtractPlugin.loader,
+        {
+          loader: "css-loader", options: {
+            sourceMap: true
+          }
+        },
+        {
+          loader: "sass-loader", options: {
+            sourceMap: true
+          }
+        }]
+      }
+    ]
   },
-  resolve: {
-    extensions: ['.js', '.jsx'],
-  },
-  output: {
-    filename: 'index.js',
-    path: path.join(__dirname, '/dist'),
-  },
-  mode: dev ? 'development' : 'production',
-  plugins: dev
-    ? [HTMLWebpackPluginConfig, new webpack.HotModuleReplacementPlugin()]
-    : [HTMLWebpackPluginConfig, DefinePluginConfig],
+  stats: "errors-only",
+  devtool: "source-map",
+  plugins: [
+    new CleanWebpackPlugin(),
+    new HtmlWebPackPlugin({
+      template: "./src/index.html",
+      filename: "index.html",
+      favicon: "./src/images/favicon-32x32.png"
+    }),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: "[name].css",
+      chunkFilename: "[id].css"
+    })
+    /*,
+    new BundleAnalyzerPlugin()*/
+  ],
+  // optimization
+  optimization: {
+    namedModules: true,
+    namedChunks: true,
+    splitChunks: {
+      cacheGroups: {
+        default: false,
+        vendors: false,
+
+        // vendor chunk
+        vendor: {
+          // sync + async chunks
+          chunks: 'all',
+
+          // import file path containing node_modules
+          test: /node_modules/
+        }
+      }
+    }
+  }
 };

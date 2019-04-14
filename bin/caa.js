@@ -9,7 +9,7 @@ const packageJson = require('../package.json');
 
 const scripts = `"start": "cross-env NODE_ENV=development webpack-dev-server -d",
     "build": "cross-env NODE_ENV=production webpack -p",
-    "test": "jest"`;
+    "test": "mocha"`;
 
 const jestConfig = `"license": "Apache-2.0",
   "jest": {
