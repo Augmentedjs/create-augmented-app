@@ -111,7 +111,7 @@ exec(
           .then(() =>
             console.info(`All done!\nYour project is now started into ${process.argv[2]} folder,
               refer to the README for the project structure.\nHappy Coding!`))
-          .catch(err => console.error(err));s
+          .catch(err => console.error(err));
       }
     );
   }
