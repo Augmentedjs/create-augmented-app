@@ -111,19 +111,8 @@ exec(
           .then(() =>
             console.info(`All done!\nYour project is now started into ${process.argv[2]} folder,
               refer to the README for the project structure.\nHappy Coding!`))
-          .catch(err => console.error(err));
+          .catch(err => console.error(err));s
       }
     );
-
-    exec(
-      `cd ${process.argv[2]} && npm run dev`,
-      (npmErr, npmStdout, npmStderr) => {
-        if (npmErr) {
-          console.error(`Error ${npmErr}`);
-          return;
-        }
-        console.info(npmStdout);
-        console.info("built, run npm start to execute");
-      });
-  },
+  }
 );

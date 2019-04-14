@@ -1,6 +1,6 @@
 {
   "name": "create-augmented-app",
-  "version": "0.1.7",
+  "version": "1.0.0",
   "description": "webpack, babel, augmented, application, router, mediator, and sass.  Also includes hosting express service.",
   "main": "index.js",
   "scripts": {
