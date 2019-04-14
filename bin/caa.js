@@ -8,30 +8,14 @@ const { exec } = require('child_process');
 const packageJson = require('../package.json');
 
 const scripts = `"start": "cross-env NODE_ENV=development webpack-dev-server -d",
-    "build": "cross-env NODE_ENV=production webpack -p",
-    "test": "mocha"`;
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production",
+    "test": "mocha --require @babel/register --require test/helper.js -c test/*Spec.js",
+    "clean": "rm -rf node_modules",
+    "reinstall": "npm run clean && npm install",
+    "rebuild": "npm run clean && npm install && npm run build"`;
 
-const jestConfig = `"license": "Apache-2.0",
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "jsx"
-    ],
-    "moduleDirectories": [
-      "node_modules"
-    ],
-    "setupFiles": [
-      "<rootDir>/src/tests/setup.js"
-    ],
-    "moduleNameMapper": {
-      "\\\\.(css|styl|less|sass|scss)$": "identity-obj-proxy"
-    },
-    "transform": {
-      "^.+\\\\.js$": "babel-jest",
-      "^.+\\\\.jsx$": "babel-jest",
-      "\\\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/src/tests/__mock__/fileTransformer.js"
-    }
-  }`;
+const jestConfig = `"license": "Apache-2.0"`;
 
 /**
  * we pass the object key dependency || devdependency to this function
@@ -115,6 +99,8 @@ exec(
         // copy additional source files
         fs
           .copy(path.join(__dirname, '../src'), `${process.argv[2]}/src`)
+          .copy(path.join(__dirname, '../service'), `${process.argv[2]}/service`)
+          .copy(path.join(__dirname, '../test'), `${process.argv[2]}/test`)
           .then(() =>
             console.info(`All done!\nYour project is now started into ${process.argv[2]} folder,
               refer to the README for the project structure.\nHappy Coding!`))
