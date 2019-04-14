@@ -7,7 +7,7 @@ const { exec } = require("child_process");
 
 const packageJson = require("../package.json");
 
-const scripts = `"start": "cross-env NODE_ENV=development webpack-dev-server -d",
+const scripts = `"start": "node ./service/index.js",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "test": "mocha --require @babel/register --require test/helper.js -c test/*Spec.js",
