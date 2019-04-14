@@ -15,7 +15,7 @@ const scripts = `"start": "cross-env NODE_ENV=development webpack-dev-server -d"
     "reinstall": "npm run clean && npm install",
     "rebuild": "npm run clean && npm install && npm run build"`;
 
-const jestConfig = `"license": "Apache-2.0"`;
+const license = `"license": "Apache-2.0"`;
 
 /**
  * we pass the object key dependency || devdependency to this function
@@ -50,7 +50,7 @@ exec(
       const data = file
         .toString()
         .replace(`"test": "echo \\"Error: no test specified\\" && exit 1"`, scripts)
-        .replace(`"license": "Apache-2.0"`, jestConfig);
+        .replace(`"license": "Apache-2.0"`, license);
       fs.writeFile(packageJSON, data, err2 => err2 || true);
     });
 
@@ -112,6 +112,18 @@ exec(
             console.info(`All done!\nYour project is now started into ${process.argv[2]} folder,
               refer to the README for the project structure.\nHappy Coding!`))
           .catch(err => console.error(err));
+
+        exec(
+          `npm run dev`,
+          (npmErr, npmStdout, npmStderr) => {
+            if (npmErr) {
+              console.error(`Error ${npmErr}`);
+              return;
+            }
+            console.info(npmStdout);
+            console.info("built, run npm start to execute");
+          });
+
       }
     );
   },

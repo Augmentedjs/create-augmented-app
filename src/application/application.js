@@ -10,7 +10,7 @@ const getPlace = (where, options) => {
 };
 
 class Application extends BaseApplication {
-  constructor(storage) {
+  constructor() {
     super(CONSTANTS.APP_NAME);
     this.router = new Router();
   };
