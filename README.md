@@ -15,7 +15,9 @@ You can use both npm or yarn.
 
 `yarn start`/`npm start` to start express cluster server, it's live on `localhost:8080`.
 
-`yarn run build`/`npm run build` to build prod bundle, it includes both treeshaking and uglify to optimize the code as much as possible.
+`yarn run dev`/`npm run dev` to build dev bundle, fast, includes source-map and no uglify.
+
+`yarn run build`/`npm run build` to build prod bundle, it includes both treeshaking and uglify to optimize the code as much as possible.  Also breaks up into vendor bundle js files.
 
 `yarn test`/`npm test` run the tests with Jest and Enzyme, by default the test included only check for the correct render of base components & routes, all are passing.
 
