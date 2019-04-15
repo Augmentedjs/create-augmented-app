@@ -1,8 +1,6 @@
 # create-augmented-app
 A simple create script to bootstrap a new app for Augmented.js Next
 
-But you still get it.
-
 Simple base app with Augmented.js Next.  Contains Router, Mediator, webpack, babel, application, and sass.  Also includes hosting express service.
 
 `npx create-augmented-app app-name` to create a starter app into `app-name` folder.
