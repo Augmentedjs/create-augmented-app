@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const fs = require("fs-extra");
+const fs = require("fs");
 const path = require("path");
 const https = require("https");
 const { exec } = require("child_process");
@@ -16,6 +16,17 @@ const scripts = `"start": "node ./service/index.js",
     "rebuild": "npm run clean && npm install && npm run build"`;
 
 const license = `"license": "Apache-2.0"`;
+
+const copyFolderSync = (from, to) => {
+  fs.mkdirSync(to);
+  fs.readdirSync(from).forEach(element => {
+    if (fs.lstatSync(path.join(from, element)).isFile()) {
+      fs.copyFileSync(path.join(from, element), path.join(to, element));
+    } else {
+      copyFolderSync(path.join(from, element), path.join(to, element));
+    }
+  });
+};
 
 /**
  * we pass the object key dependency || devdependency to this function
@@ -97,21 +108,15 @@ exec(
 
         console.info("Copying additional files..");
         // copy additional source files
-        fs.copy(path.join(__dirname, "../src"), `${process.argv[2]}/src`)
-          .then(() =>
-            console.info(`copying source`))
-          .catch(err => console.error(err));
+        console.info(`copying source`);
+        copyFolderSync(path.join(__dirname, "../src"), `${process.argv[2]}/src`);
 
-        fs.copy(path.join(__dirname, "../test"), `${process.argv[2]}/test`)
-          .then(() =>
-            console.info(`copying tests`))
-          .catch(err => console.error(err));
+        console.info(`copying tests`);
+        copyFolderSync(path.join(__dirname, "../test"), `${process.argv[2]}/test`);
 
-        fs.copy(path.join(__dirname, "../service"), `${process.argv[2]}/service`)
-          .then(() =>
-            console.info(`All done!\nYour project is now started into ${process.argv[2]} folder,
-              refer to the README for the project structure.\nHappy Coding!`))
-          .catch(err => console.error(err));
+        console.info(`All done!\nYour project is now started into ${process.argv[2]} folder,
+          refer to the README for the project structure.\nThank you for using Augmented.js!`);
+        copyFolderSync(path.join(__dirname, "../service"), `${process.argv[2]}/service`);cd
       }
     );
   }
