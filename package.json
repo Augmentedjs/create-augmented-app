@@ -1,6 +1,6 @@
 {
   "name": "create-augmented-app",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "webpack, babel, augmented, application, router, mediator, and sass.  Also includes hosting express service.",
   "main": "index.js",
   "scripts": {
@@ -58,13 +58,9 @@
     "webpack-manifest-plugin": "^2.0.4"
   },
   "dependencies": {
-    "whatwg-fetch": "^3.0.0",
-    "winston": "^3.2.1",
-    "url-loader": "^2.0.1",
     "compression": "^1.7.4",
     "express": "^4.17.1",
     "file-loader": "^4.0.0",
-    "fs-extra": "^8.1.0",
     "material-icons": "^0.3.1",
     "next-core-logger": "^2.6.0",
     "presentation-application": "^2.8.1",
@@ -74,7 +70,10 @@
     "presentation-logger": "^2.6.2",
     "presentation-mediator": "^2.7.1",
     "presentation-router": "^2.6.7",
-    "typeface-roboto": "0.0.54"
+    "typeface-roboto": "0.0.54",
+    "url-loader": "^2.0.1",
+    "whatwg-fetch": "^3.0.0",
+    "winston": "^3.2.1"
   },
   "bugs": {
     "url": "https://github.com/Augmentedjs/create-augmented-app/issues"
