@@ -1,6 +1,6 @@
 import { Level } from "next-core-logger";
-import { ColorConsoleLogger } from "presentation-logger";
+import { ConsoleLogger } from "presentation-logger";
 
-const Logger = new ColorConsoleLogger(Level.DEBUG);
+const Logger = new ConsoleLogger(Level.DEBUG);
 
 export default Logger;

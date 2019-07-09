@@ -13,6 +13,8 @@ class Article extends BaseArticle {
     });
     // This is where body content will go
     this.addSection({ "id": "main", "class": "main" });
+    // for the dialogs
+    this.addSection({ "id": "dialogs", "class": "dialogs" });
   };
 };
 

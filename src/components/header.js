@@ -1,9 +1,9 @@
 import { Header as BaseHeader } from "presentation-components";
-import Logger from "../logger/logger.js";
 import { APP_NAME } from "../constants.js";
+import { DISPLAY_ABOUT } from "../messages.js";
 
-const PROFILE = "profile";
 const AVATAR_IMAGE = "avatar";
+const MENU = "menu";
 
 class Header extends BaseHeader {
   constructor(options) {
@@ -12,10 +12,14 @@ class Header extends BaseHeader {
       "name": "header"
     });
     this.template = `
-      <figure class="logo" id="${AVATAR_IMAGE}">
-      </figure>
-      <h1>${APP_NAME}</h1>
+      <nav id="${MENU}"></nav>
+      <figure data-${this.name}="logo" data-click="logo" class="logo" id="${AVATAR_IMAGE}"></figure>
+      <h1 class="appname">${APP_NAME}</h1>
     `;
+  };
+
+  logo(e) {
+    this.sendMessage(DISPLAY_ABOUT);
   };
 };
 

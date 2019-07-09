@@ -1,35 +1,14 @@
 import { Application as BaseApplication } from "presentation-application";
 import Router from "../router/router.js";
-import Logger from "../logger/logger.js";
-import * as CONSTANTS from "../constants.js";
-import serialize from "presentation-router";
-import AboutDialog from "../components/aboutDialog.js";
-
-const getPlace = (where, options) => {
-  return (options) ? `${where}?${serialize(options)}` : where;
-};
+import { APP_NAME } from "../constants.js";
 
 class Application extends BaseApplication {
   constructor() {
-    super(CONSTANTS.APP_NAME);
-    this.router = new Router();
-  };
-
-  navigate(where, options) {
-    if (this.router && where) {
-      this.router.navigate(getPlace(where, options), { "trigger": true });
-    }
-  };
-
-  launch(where, options) {
-    if (this.router && where) {
-      this.router.navigate(getPlace(where, options), { "trigger": false });
-    }
-  };
-
-  about() {
-    const view = new AboutDialog();
-    view.render();
+    super({
+      "name": APP_NAME,
+      "router": new Router()
+    });
+    this.title = APP_NAME;
   };
 };
 

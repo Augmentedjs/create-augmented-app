@@ -3,16 +3,16 @@ const webpack = require("webpack");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-//const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const ManifestPlugin = require("webpack-manifest-plugin");
 
 module.exports = {
-  entry: ["./src/index.js"],
+  entry: ['./src/index.js'],
   context: __dirname,
   target: "web",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
-    chunkFilename: "[name].js"
+    chunkFilename: '[name].js'
   },
   module: {
     rules: [
@@ -28,7 +28,7 @@ module.exports = {
         use: [
           { "loader": "file-loader",
           options: {
-            name: "[name].[ext]",
+            name: '[name].[ext]',
           }}
         ]
       },
@@ -37,7 +37,7 @@ module.exports = {
         use: [
           { "loader": "file-loader",
           options: {
-            name: "[name].[ext]",
+            name: '[name].[ext]',
           }}
         ]
       },
@@ -61,7 +61,7 @@ module.exports = {
     ]
   },
   stats: "errors-only",
-  devtool: "source-map",
+  devtool: "cheap-source-map",
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebPackPlugin({
@@ -74,9 +74,11 @@ module.exports = {
       // both options are optional
       filename: "[name].css",
       chunkFilename: "[id].css"
-    })
-    /*,
-    new BundleAnalyzerPlugin()*/
+    }),
+    new webpack.DefinePlugin({
+      VERSION: JSON.stringify(require("./package.json").version)
+    }),
+    new ManifestPlugin()
   ],
   // optimization
   optimization: {

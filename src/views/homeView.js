@@ -8,7 +8,7 @@ class HomeView extends DirectiveView {
       "el": MOUNT_POINT,
       "name": "homeview",
       "style": "view",
-      "template": "<p>Hello</p>"
+      "template": "<p>Welcome to Augmented.js Next!</p>"
     });
   };
 };

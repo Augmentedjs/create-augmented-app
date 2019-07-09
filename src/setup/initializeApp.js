@@ -6,8 +6,6 @@ import { FONT } from "../constants.js";
 
 const initializeApp = async () => {
   try {
-    Application.registerStylesheet(FONT.FONTS);
-
     Application.mediator = new Mediator();
     if (!Application.mediator) {
       throw new Error("Error creating mediator!");
