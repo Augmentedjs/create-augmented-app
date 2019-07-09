@@ -116,7 +116,7 @@ exec(
 
         console.info(`All done!\nYour project is now started into ${process.argv[2]} folder,
           refer to the README for the project structure.\nThank you for using Augmented.js!`);
-        copyFolderSync(path.join(__dirname, "../service"), `${process.argv[2]}/service`);cd
+        copyFolderSync(path.join(__dirname, "../service"), `${process.argv[2]}/service`);
       }
     );
   }
