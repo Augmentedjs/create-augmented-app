@@ -107,18 +107,18 @@ exec(
         console.info("Dependencies installed");
 
         try {
-        console.info("Copying additional files..");
-        // copy additional source files
-        console.info(`copying source`);
-        copyFolderSync(path.join(__dirname, "../src"), `${process.argv[2]}/src`);
+          console.info("Copying additional files..");
+          // copy additional source files
+          console.info(`copying source`);
+          copyFolderSync(path.join(__dirname, "../src"), `${process.argv[2]}/src`);
 
-        console.info(`copying tests`);
-        copyFolderSync(path.join(__dirname, "../test"), `${process.argv[2]}/test`);
+          console.info(`copying tests`);
+          copyFolderSync(path.join(__dirname, "../test"), `${process.argv[2]}/test`);
 
-        console.info(`copying service`);
-        copyFolderSync(path.join(__dirname, "../service"), `${process.argv[2]}/service`);
-        console.info(`All done!\nYour project is now started into ${process.argv[2]} folder,
-          refer to the README for the project structure.\nThank you for using Augmented.js!`);
+          console.info(`copying service`);
+          copyFolderSync(path.join(__dirname, "../service"), `${process.argv[2]}/service`);
+          console.info(`All done!\nYour project is now started into ${process.argv[2]} folder,
+            refer to the README for the project structure.\nThank you for using Augmented.js!`);
         } catch(e) {
           console.error("Error", e);
         }
