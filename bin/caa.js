@@ -73,7 +73,7 @@ exec(
     }
 
     // npm will remove the .gitignore file when the package is installed, therefore it cannot be copied
-    // locally and needs to be downloaded. See https://github.com/Kornil/simple-react-app/issues/12
+    // locally and needs to be downloaded.
     https.get(
       "https://raw.githubusercontent.com/Augmentedjs/create-augmented-app/master/.gitignore",
       (res) => {
@@ -106,6 +106,7 @@ exec(
         console.info(npmStdout);
         console.info("Dependencies installed");
 
+        try {
         console.info("Copying additional files..");
         // copy additional source files
         console.info(`copying source`);
@@ -114,9 +115,13 @@ exec(
         console.info(`copying tests`);
         copyFolderSync(path.join(__dirname, "../test"), `${process.argv[2]}/test`);
 
+        console.info(`copying service`);
+        copyFolderSync(path.join(__dirname, "../service"), `${process.argv[2]}/service`);
         console.info(`All done!\nYour project is now started into ${process.argv[2]} folder,
           refer to the README for the project structure.\nThank you for using Augmented.js!`);
-        copyFolderSync(path.join(__dirname, "../service"), `${process.argv[2]}/service`);
+        } catch(e) {
+          console.error("Error", e);
+        }
       }
     );
   }
