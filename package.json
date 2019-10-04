@@ -1,6 +1,6 @@
 {
   "name": "create-augmented-app",
-  "version": "1.2.8",
+  "version": "1.2.9",
   "description": "webpack, babel, augmented, application, router, mediator, and sass.  Also includes hosting express service.",
   "main": "index.js",
   "scripts": {
@@ -44,7 +44,7 @@
     "style-loader": "^1.0.0",
     "webpack": "^4.41.0",
     "webpack-cli": "^3.3.9",
-    "webpack-manifest-plugin": "^2.1.2"
+    "webpack-manifest-plugin": "^2.2.0"
   },
   "dependencies": {
     "compression": "^1.7.4",
@@ -55,13 +55,13 @@
     "presentation-application": "^2.8.3",
     "presentation-components": "^2.8.9",
     "presentation-css": "^3.3.0",
-    "presentation-dialogs": "^2.7.1",
+    "presentation-dialogs": "^2.8.0",
     "presentation-logger": "^2.6.4",
     "presentation-mediator": "^2.7.1",
     "presentation-router": "^2.6.7",
-    "sass": "^1.22.12",
+    "sass": "^1.23.0",
     "typeface-roboto": "0.0.75",
-    "url-loader": "^2.1.0",
+    "url-loader": "^2.2.0",
     "whatwg-fetch": "^3.0.0",
     "winston": "^3.2.1"
   },
