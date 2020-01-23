@@ -7,13 +7,15 @@ const { exec } = require("child_process");
 
 const packageJson = require("../package.json");
 
-const scripts = `"start": "node ./service/index.js",
-    "dev": "webpack --mode development",
-    "build": "webpack --mode production",
-    "test": "mocha --require @babel/register --require test/helper.js -c test/*Spec.js",
-    "clean": "rm -rf node_modules",
-    "reinstall": "npm run clean && npm install",
-    "rebuild": "npm run clean && npm install && npm run build"`;
+const scripts = `
+  "start": "webpack-dev-server",
+  "dev": "webpack --mode development",
+  "build": "webpack --mode production",
+  "test": "mocha --require @babel/register --require test/helper.js -c test/*Spec.js",
+  "clean": "rm -rf node_modules",
+  "reinstall": "npm run clean && npm install",
+  "rebuild": "npm run clean && npm install && npm run build"
+`;
 
 const license = `"license": "Apache-2.0"`;
 
@@ -44,14 +46,14 @@ const getDeps = deps =>
     // exclude the plugin only used in this file, nor relevant to the boilerplate
     .replace(/fs-extra[^\s]+/g, "");
 
-console.info("Initializing project..");
+console.info("\x1b[34mInitializing project…\x1b[0m");
 
 // create folder and initialize npm
 exec(
   `mkdir ${process.argv[2]} && cd ${process.argv[2]} && npm init -f`,
   (initErr, initStdout, initStderr) => {
     if (initErr) {
-      console.error(`Error: ${initErr}`);
+      console.error(`\x1b[31mError: ${initErr}\x1b[0m`);
       return;
     }
     const packageJSON = `${process.argv[2]}/package.json`;
@@ -65,12 +67,14 @@ exec(
       fs.writeFile(packageJSON, data, err2 => err2 || true);
     });
 
-    const filesToCopy = ["README.md", "webpack.config.js", ".eslintrc", ".babelrc"];
+    const filesToCopy = ["README.md", "webpack.config.js", ".babelrc"];
 
     for (let i = 0; i < filesToCopy.length; i += 1) {
       fs.createReadStream(path.join(__dirname, `../${filesToCopy[i]}`))
         .pipe(fs.createWriteStream(`${process.argv[2]}/${filesToCopy[i]}`));
     }
+
+    console.info("\x1b[37m • Fetching some files…\x1b[0m");
 
     // npm will remove the .gitignore file when the package is installed, therefore it cannot be copied
     // locally and needs to be downloaded.
@@ -90,37 +94,35 @@ exec(
       },
     );
 
-    console.info("npm init -- done\n");
+    console.info("\x1b[34mnpm init -- done!\x1b[0m");
 
     // installing dependencies
-    console.info("Installing deps -- it might take a few minutes..");
+    console.info("\x1b[34mInstalling dependencies -- it might take a few minutes…\x1b[0m");
     const devDeps = getDeps(packageJson.devDependencies);
     const deps = getDeps(packageJson.dependencies);
     exec(
       `cd ${process.argv[2]} && npm i -D ${devDeps} && npm i -S ${deps}`,
       (npmErr, npmStdout, npmStderr) => {
         if (npmErr) {
-          console.error(`Error ${npmErr}`);
+          console.error(`\x1b[31mError ${npmErr}\x1b[0m`);
           return;
         }
-        console.info(npmStdout);
-        console.info("Dependencies installed");
+        // console.info(npmStdout);
+        console.info("\x1b[34mDependencies installed!\x1b[0m");
 
         try {
-          console.info("Copying additional files..");
+          console.info("\x1b[37m • Copying additional files…\x1b[0m");
           // copy additional source files
-          console.info(`copying source`);
+          console.info(`\x1b[37m • Copying source…\x1b[0m`);
           copyFolderSync(path.join(__dirname, "../src"), `${process.argv[2]}/src`);
 
-          console.info(`copying tests`);
+          console.info(`\x1b[34mCopying tests…\x1b[0m`);
           copyFolderSync(path.join(__dirname, "../test"), `${process.argv[2]}/test`);
 
-          console.info(`copying service`);
-          copyFolderSync(path.join(__dirname, "../service"), `${process.argv[2]}/service`);
-          console.info(`All done!\nYour project is now started into ${process.argv[2]} folder,
-            refer to the README for the project structure.\nThank you for using Augmented.js!`);
+          console.info(`\x1b[1m\x1b[36mAll done!\nYour project is now started into ${process.argv[2]} folder,
+            refer to the README for the project structure.\nThank you for using Augmented.js!\x1b[0m`);
         } catch(e) {
-          console.error("Error", e);
+          console.error("\x1b[31mError\x1b[0m", e);
         }
       }
     );

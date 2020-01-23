@@ -1,8 +1,5 @@
 import { Mediator as BaseMediator } from "presentation-mediator";
-import Application from "../application/application.js";
-import Logger from "../logger/logger.js";
 import * as MESSAGES from "../messages.js";
-import * as CONSTANTS from "../constants.js";
 import { displayErrorMessage, displayNotification, displayMessage, displayAbout } from "./functions/mediation.js";
 
 class Mediator extends BaseMediator {
@@ -10,7 +7,7 @@ class Mediator extends BaseMediator {
     super({
       "name": "appmediator"
     });
-    this.on(MESSAGES.DISPLAY_ABOUT, (message) => {
+    this.on(MESSAGES.DISPLAY_ABOUT, () => {
       displayAbout(this);
     });
 
@@ -26,12 +23,8 @@ class Mediator extends BaseMediator {
       displayNotification(message, title, this);
     });
 
-    this.on(MESSAGES.NAVIGATION, (where) => {
-      if (where) {
-        Application.navigate(where);
-      } else {
-        Logger.warn("Can not navigate to nowhere.");
-      }
+    this.on(MESSAGES.SET_IN_PROGRESS, (status) => {
+      this.publish(MESSAGES.HEADER, MESSAGES.SET_INDICATOR, status);
     });
   };
 
@@ -44,4 +37,6 @@ class Mediator extends BaseMediator {
   };
 };
 
-export default Mediator;
+const mediator = new Mediator();
+
+export default mediator;

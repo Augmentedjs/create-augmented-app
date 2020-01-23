@@ -1,5 +1,4 @@
-import Logger from "../logger/logger.js";
-import Application from "../application/application.js";
+import Mediator from "../views/mediator.js";
 import { Router as BaseRouter } from "presentation-router";
 import { PANEL } from "../messages.js";
 
@@ -12,8 +11,9 @@ const TRANSITION = {
 };
 
 const loadViewAndObserve = async (router, view) => {
+  await Mediator.observeColleagueAndTrigger(view, PANEL, view.name);
   await router.loadView(view);
-  await Application.mediator.observeColleagueAndTrigger(view, PANEL, view.name);
+  return router;
 };
 
 class Router extends BaseRouter {
@@ -22,25 +22,21 @@ class Router extends BaseRouter {
       "transition": TRANSITION,
       "routes": {
         "": () => {
-          const view = new HomeView();
-          loadViewAndObserve(this, view);
-          return this;
+          return loadViewAndObserve(this, new HomeView());
         },
         "home": () => {
-          const view = new HomeView();
-          loadViewAndObserve(this, view);
-          return this;
+          return loadViewAndObserve(this, new HomeView());
         }
       }
     });
   };
 
-  cleanup() {
+  async cleanup() {
     if (this.view) {
-      Application.mediator.dismissColleagueTrigger(this.view, PANEL, this.view.name);
+      await Mediator.dismissColleagueTrigger(this.view, PANEL, this.view.name);
     }
-    return super.cleanup();
-  }
+    return await super.cleanup();
+  };
 };
 
 export default Router;

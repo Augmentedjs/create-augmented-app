@@ -1,25 +1,23 @@
 import { Header as BaseHeader } from "presentation-components";
 import { APP_NAME } from "../constants.js";
-import { DISPLAY_ABOUT } from "../messages.js";
 
-const AVATAR_IMAGE = "avatar";
 const MENU = "menu";
+const PROGRESS = "progress";
 
 class Header extends BaseHeader {
   constructor(options) {
-    super({
-      "el": "#header",
-      "name": "header"
-    });
-    this.template = `
+    if (!options) {
+      options = {};
+    }
+    options.el = "#header";
+    options.name = "header";
+    super(options);
+    this.template = /*HTML*/`
       <nav id="${MENU}"></nav>
-      <figure data-${this.name}="logo" data-click="logo" class="logo" id="${AVATAR_IMAGE}"></figure>
       <h1 class="appname">${APP_NAME}</h1>
+      <div class="user" id="user"></div>
+      <div id="${PROGRESS}" class="progress"></div>
     `;
-  };
-
-  logo(e) {
-    this.sendMessage(DISPLAY_ABOUT);
   };
 };
 

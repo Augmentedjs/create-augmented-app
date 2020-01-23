@@ -5,3 +5,9 @@ export const DISPLAY_ABOUT = "displayabout";
 export const NAVIGATION = "navigation";
 export const PANEL = "panel";
 export const HEADER = "header";
+export const MENU = "menu";
+
+export const SET_IN_PROGRESS = "inprogress";
+export const SET_COMPLETE = "progresscomplete";
+
+export const SET_INDICATOR = "setIndicator";

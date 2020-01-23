@@ -1,23 +1,32 @@
 const path = require("path");
 const webpack = require("webpack");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+// const CopyWebpackPlugin = require("copy-webpack-plugin");
+const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 
 module.exports = {
-  entry: ['./src/index.js'],
+  entry: ["./src/index.js"],
   context: __dirname,
   target: "web",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
-    chunkFilename: '[name].js'
+    chunkFilename: "[name].js"
+  },
+  devServer: {
+    contentBase: path.join(__dirname, "dist"),
+    compress: true,
+    port: 8080,
+    before: (app, server) => {
+    }
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader"
@@ -26,37 +35,42 @@ module.exports = {
       {
         test: /\.(png|svg|jpg|gif)$/,
         use: [
-          { "loader": "file-loader",
-          options: {
-            name: '[name].[ext]',
-          }}
+          {
+            loader: "file-loader",
+            options: {
+              name: "images/[name].[ext]",
+            }
+          }
         ]
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
         use: [
-          { "loader": "file-loader",
-          options: {
-            name: '[name].[ext]',
-          }}
+          {
+            loader: "file-loader",
+            options: {
+              name: "fonts/[name].[ext]",
+            }
+          }
         ]
       },
       {
         test: /\.(css|scss)$/,
-        use: [{
-          loader: "style-loader"
-        },
-        MiniCssExtractPlugin.loader,
-        {
-          loader: "css-loader", options: {
-            sourceMap: true
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: {
+              sourceMap: true
+            }
+          },
+          {
+            loader: "sass-loader",
+            options: {
+              sourceMap: true
+            }
           }
-        },
-        {
-          loader: "sass-loader", options: {
-            sourceMap: true
-          }
-        }]
+        ]
       }
     ]
   },
@@ -66,8 +80,12 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebPackPlugin({
       template: "./src/index.html",
-      filename: "index.html",
-      favicon: "./src/images/favicon-32x32.png"
+      filename: "index.html"
+    }),
+    new FaviconsWebpackPlugin({
+      logo: "./src/images/favicon.png",
+      prefix: "images/",
+      inject: true,
     }),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
@@ -78,6 +96,9 @@ module.exports = {
     new webpack.DefinePlugin({
       VERSION: JSON.stringify(require("./package.json").version)
     }),
+    // new CopyWebpackPlugin([
+    //   { from: "src/images", to: "images" }
+    // ]),
     new ManifestPlugin()
   ],
   // optimization

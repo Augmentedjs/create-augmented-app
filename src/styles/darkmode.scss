@@ -1,0 +1,58 @@
+/* set these for the app's branding */
+:root {
+  --primary-color: #607D8B;
+  --primary-color-dark: #455A64;
+  --primary-color-light: #90A4AE;
+  --secondary-color: #2196F3;
+  --secondary-color-dark: #1976D2;
+  --secondary-color-light: #90CAF9;
+  --background-color: #181818;
+  --app-color: #212121;
+  --panel-color: #212121;
+  --table-background: #101010;
+  --app-text: rgba(255,255,255,0.85);
+  --border-color: rgba(255,255,255,0.2);
+}
+
+.panel {
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+}
+
+.menu {
+  font-size: 1rem;
+  color: var(--light-text);
+  top: -1rem;
+  background-color: rgba(0, 0, 0, 0.85);
+
+  i.material-icons.md-dark {
+    color: rgba(255, 255, 255, 0.55);
+  }
+  div:first-child {
+    color: var(--secondary-color-light);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  div.spacer {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  div:hover {
+    background-color: var(--secondary-color-dark);
+  }
+}
+
+table {
+  &.material {
+    background-color: var(--table-background);
+    td, th {
+      color: var(--app-text);
+      &:hover {
+        color: var(--app-text);
+        background-color: var(--secondary-color-dark);
+      }
+    }
+  }
+}
+
+a {
+  color: var(--secondary-color-light);
+}

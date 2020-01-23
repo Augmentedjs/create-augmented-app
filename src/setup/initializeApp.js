@@ -1,40 +1,35 @@
 import Mediator from "../views/mediator.js";
-import Article from "../components/article.js";
-import Header from "../components/header.js";
+import MainView from "../views/mainView.js";
 import Application from "../application/application.js";
-import { FONT } from "../constants.js";
+import { HEADER } from "../messages.js";
+import Logger from "../logger/logger.js";
+
+import setupTheme from "./setupTheme.js";
 
 const initializeApp = async () => {
   try {
-    Application.mediator = new Mediator();
-    if (!Application.mediator) {
+    const theme = await setupTheme();
+    if (theme.isDarkMode) {
+      import("../styles/darkmode.scss")
+      .catch(e => {
+        Logger.error(e);
+      });
+    } else {
+      import("../styles/lightmode.scss")
+      .catch(e => {
+        Logger.error(e);
+      });
+    }
+
+    if (!Mediator) {
       throw new Error("Error creating mediator!");
     }
 
-    Application.mediator.article = new Article();
-    if (!Application.mediator.article) {
-      throw new Error("Error creating mediator!");
-    }
-
-    Application.mediator.header = new Header();
-    if (!Application.mediator.header) {
-      throw new Error("Error creating header!");
-    }
-
-    let view = await Application.mediator.article.render();
+    const main = new MainView();
+    Mediator.observeColleagueAndTrigger(main, HEADER, "main");
+    const view = await main.render();
     if (!view) {
-      throw new Error("Error creating mediator!");
-    }
-
-    view = await Application.mediator.header.render();
-    if (!view) {
-      throw new Error("Error creating header!");
-    }
-
-    Application.mediator.observeColleagueAndTrigger(Application.mediator.article, "article", "header");
-    Application.mediator.observeColleagueAndTrigger(Application.mediator.header, "header", "header");
-    if (!Application.mediator.channels) {
-      throw new Error("Error observing views!");
+      throw new Error("Error rendering main!");
     }
 
     const p = await Application.start();
@@ -42,8 +37,8 @@ const initializeApp = async () => {
       throw new Error("Error starting application!");
     }
   } catch(e) {
-    const err = `Error initializing Application - ${e}`;
-    throw new Error(err);
+    Logger.error(e);
+    throw e;
   }
 };
 
