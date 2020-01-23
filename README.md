@@ -1,7 +1,7 @@
 # create-augmented-app
 A simple create script to bootstrap a new app for Augmented.js Next
 
-Simple base app with Augmented.js Next.  Contains Router, Mediator, webpack, babel, application, and sass.  Also includes hosting express service.
+Simple base app with Augmented.js Next.  Contains Router, Mediator, webpack, babel, application, and sass.  Also includes webpack dev service.
 
 `npx create-augmented-app app-name` to create a starter app into `app-name` folder.
 
@@ -11,15 +11,13 @@ It includes my latest versions and full setup to wire up the basics of an app, i
 Style is handled by sass/scss, Bundle is generated with webpack 4.  Babel is also included.
 
 ## What next
-You can use both npm or yarn.  
-
-`yarn start`/`npm start` to start express cluster server, it's live on `localhost:8080`.
+`yarn start`/`npm start` to start webpack dev server, it's live on `localhost:8080`.
 
 `yarn run dev`/`npm run dev` to build dev bundle, fast, includes source-map and no uglify.
 
-`yarn run build`/`npm run build` to build prod bundle, it includes both treeshaking and uglify to optimize the code as much as possible.  Also breaks up into vendor bundle js files.
+`yarn run build`/`npm run build` to build prod bundle, it includes both treeshaking and uglify to optimize the code as much as possible.  Also breaks up into vendor bundle js and css files.
 
-`yarn test`/`npm test` run the tests with Jest and Enzyme, by default the test included only check for the correct render of base components & routes, all are passing.
+`yarn test`/`npm test` run the tests with mocha and chai, by default the test included only tests the running of the test suite.
 
 ## Project structure
 
@@ -28,24 +26,24 @@ The boilerplate structure and files are the same as this repo minus the *bin* fo
 ```
 *root*
 |
-├── */service/* The express hosting service
 ├── */src/*
 │   ├── */application/* Application class, used for the core of the app
 │   ├── */components/* small components, such as header and base dialogs
 │   ├── */images/* images used in the app, including favicon
+│   ├── */logger/* The logger for the app
 │   ├── */images/* Simple color console logger
 │   ├── */router/* The router class and any routing subclasses
-│   ├── */setup/* The 'main' class for starting the app
+│   ├── */setup/* The basic startup script for starting the app
 │   ├── */styles/* styling
 │   ├── */views/* The base view components (including mediator)
 │   ├── *constants.js* App constants
 │   ├── *index.html* html entry point
 │   ├── *index.js* javascript entry point
 │   └── *messages.js* App messages for mediation
+├── *.gitignore* The basic node git ignore
 ├── */test/* The mocha test files
 ├── *package.json* the whole package.json with every dependency and script, nothing is kept hidden
-├── *.eslintrc* eslint config
-├── *.babelrc* babel config (polyfills)
+├── *.babelrc* babel config for the build
 ├── *webpack.config.js* webpack config, it has a dev and prod environment
 └── *README.md* this file
 ```
@@ -54,8 +52,3 @@ The boilerplate structure and files are the same as this repo minus the *bin* fo
 ## Tests
 
 The testing environment is written in mocha + chai.  It's a simple base test file that give the simple start and runner.  It's intended to start hitting the app apis and and business logic.
-
-
-## Eslint
-
-This project has eslint installed for checking the code for quality. Run via npm run eslint
