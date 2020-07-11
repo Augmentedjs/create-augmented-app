@@ -4,22 +4,22 @@ import Application from "../application/application.js";
 import { HEADER } from "../messages.js";
 import Logger from "../logger/logger.js";
 
-import setupTheme from "./setupTheme.js";
+// import setupTheme from "./setupTheme.js";
 
 const initializeApp = async () => {
   try {
-    const theme = await setupTheme();
-    if (theme.isDarkMode) {
-      import("../styles/darkmode.scss")
-      .catch(e => {
-        Logger.error(e);
-      });
-    } else {
-      import("../styles/lightmode.scss")
-      .catch(e => {
-        Logger.error(e);
-      });
-    }
+    // const theme = await setupTheme();
+    // if (theme.isDarkMode) {
+    //   import("../styles/darkmode.scss")
+    //   .catch(e => {
+    //     Logger.error(e);
+    //   });
+    // } else {
+    //   import("../styles/lightmode.scss")
+    //   .catch(e => {
+    //     Logger.error(e);
+    //   });
+    // }
 
     if (!Mediator) {
       throw new Error("Error creating mediator!");

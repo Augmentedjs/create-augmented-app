@@ -16,3 +16,9 @@ dialog.about {
   margin-left: -12.25rem;
   height: 20rem;
 }
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  @import "~presentation-css-dark";
+  @import "./darkmode-local.scss";
+}
