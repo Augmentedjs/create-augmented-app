@@ -1,0 +1,131 @@
+@media screen and (max-width: 600px) {
+  .panel {
+    margin: 0;
+    height: calc(100vh - 5rem);
+  }
+
+  .username {
+    display: none;
+  }
+  .buttonbar {
+    button {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .select.large {
+    width: 100% !important;
+  }
+
+  .group {
+    .tools {
+      > i {
+        display: none;
+      }
+      ul {
+        margin: 0;
+        opacity: 1;
+        width: auto;
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+
+        li {
+          text-align: right;
+          height: auto;
+          margin: 0;
+          padding: 0.125rem 0.5rem;
+        }
+      }
+    }
+  }
+
+  dialog {
+    &.about, &.alert {
+      margin-left: 0;
+      margin-right: 0;
+      left: 0;
+      width: auto;
+    }
+  }
+
+  table.material {
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+    border: 0;
+
+    caption {
+      display: block;
+      position: relative;
+      top: 0;
+      font-weight: 100;
+      color: var(--secondary-color);
+    }
+
+    th,
+    td {
+      padding: .625rem;
+      text-align: center;
+    }
+
+    th {
+      font-size: .85rem;
+      letter-spacing: .1rem;
+      text-transform: uppercase;
+    }
+
+    thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+
+    tr {
+      padding: .35rem;
+      display: block;
+      margin-bottom: .625rem;
+      border-top: 0.25rem solid var(--panel-color);
+    }
+
+    td.select {
+      width: auto;
+      text-align: left !important;
+      > input[type=checkbox] {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+
+    td, td.number {
+      display: block;
+      font-size: .8rem;
+      text-align: right !important;
+      height: auto !important;
+
+      > input {
+        width: 100%;
+        margin: 0.5rem 0;
+        padding: 0;
+      }
+
+      &::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      &:last-child {
+        border-bottom: 0 !important;
+      }
+    }
+  }
+}

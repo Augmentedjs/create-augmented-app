@@ -1,7 +1,6 @@
 import { HamburgerMenu as BaseHamburgerMenu } from "presentation-navigation";
 import Application from "../application/application.js";
-import { APP_NAME } from "../constants.js";
-
+import { DISPLAY_ABOUT } from "../messages.js";
 const MOUNT_POINT = "#menu";
 
 class HamburgerMenu extends BaseHamburgerMenu {
@@ -9,7 +8,7 @@ class HamburgerMenu extends BaseHamburgerMenu {
     super({
       "el": MOUNT_POINT,
       "name": "appmenu",
-      "title": APP_NAME
+      "title": APP_TITLE
     });
 
     this.addItem(
@@ -19,8 +18,6 @@ class HamburgerMenu extends BaseHamburgerMenu {
       "Home"
     );
 
-    this.addSpacer();
-
     this.addItem(
       "about",
       "about",
@@ -29,13 +26,13 @@ class HamburgerMenu extends BaseHamburgerMenu {
     );
   };
 
-  about() {
-    Application.about();
+  home() {
+    Application.navigate("home");
     this.toggle();
   };
 
-  home() {
-    Application.navigate("home");
+  about() {
+    this.sendMessage(DISPLAY_ABOUT);
     this.toggle();
   };
 };

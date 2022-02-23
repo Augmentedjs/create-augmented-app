@@ -1,5 +1,4 @@
 import { DirectiveView } from "presentation-decorator";
-
 const MOUNT_POINT = "#main";
 
 class HomeView extends DirectiveView {
@@ -8,8 +7,12 @@ class HomeView extends DirectiveView {
       "el": MOUNT_POINT,
       "name": "homeview",
       "style": "view",
-      "template": "<p>Welcome to Augmented.js Next!</p>"
+      "template": /*html*/`<h1>Welcome!</h1>`
     });
+  };
+
+  async render() {
+    return await super.render();
   };
 };
 

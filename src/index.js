@@ -1,12 +1,20 @@
+/* fonts */
+import "typeface-libre-franklin";
 import "material-icons";
+
 import "presentation-css";
 import "./styles/main.scss";
+
+import { ErrorHandler } from "presentation-exceptions";
 import initializeApp from "./setup/initializeApp.js";
 
-initializeApp();
-window.addEventListener("load", (event) => {
-  console.debug("DOM fully loaded and parsed, and painted, swapping fonts");
-  /* fonts */
-  import("typeface-libre-franklin");
-  import("typeface-roboto");
-});
+const init = async () => {
+  try {
+    return await initializeApp();
+  } catch(e) {
+    ErrorHandler(e);
+  }
+};
+
+// invoke the app
+init();

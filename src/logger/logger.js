@@ -1,5 +1,4 @@
 import { Level, ConsoleLogger } from "presentation-logger";
-
-const Logger = new ConsoleLogger(Level.DEBUG);
-
+const level = (IS_PROD === "production") ? Level.INFO : Level.DEBUG;
+const Logger = new ConsoleLogger(level);
 export default Logger;

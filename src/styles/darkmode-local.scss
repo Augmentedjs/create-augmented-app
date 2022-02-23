@@ -12,47 +12,60 @@
   --table-background: #101010;
   --app-text: rgba(255,255,255,0.85);
   --border-color: rgba(255,255,255,0.2);
+
+  --button-color: white;
+  --button-hover-color: #d0d0d0;
 }
 
-.panel {
-  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+button {
+  color: var(--dark-text);
+  background-color: var(--button-color);
+  &:hover {
+    color: var(--dark-text);
+    background-color: var(--button-hover-color);
+  }
+
+  &.primary {
+    color: var(--dark-text);
+    &:hover {
+      background-color: var(--primary-color-light);
+    }
+  }
+
+  &.secondary {
+    color: var(--dark-text);
+  }
 }
 
+/* more subtle menu highlight */
 .menu {
-  font-size: 1rem;
-  color: var(--light-text);
-  top: -1rem;
-  background-color: rgba(0, 0, 0, 0.85);
-
-  i.material-icons.md-dark {
-    color: rgba(255, 255, 255, 0.55);
-  }
-  div:first-child {
-    color: var(--secondary-color-light);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  div.spacer {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
   div:hover {
     background-color: var(--secondary-color-dark);
   }
 }
 
-table {
-  &.material {
-    background-color: var(--table-background);
-    td, th {
-      color: var(--app-text);
+.tools {
+  ul {
+    background-color: var(--app-color);
+    color: var(--app-text);
+
+    li {
       &:hover {
-        color: var(--app-text);
+        i {
+          color: var(--dark-text);
+        }
+        color: var(--dark-text);
         background-color: var(--secondary-color-dark);
       }
     }
   }
 }
 
-a {
-  color: var(--secondary-color-light);
+table.material {
+  td, th {
+    &.sorted {
+      background-color: var(--secondary-color-dark);
+      color: var(--app-text);
+    }
+  }
 }
