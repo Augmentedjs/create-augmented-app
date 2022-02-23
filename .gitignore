@@ -13,3 +13,4 @@ node_modules
 
 # Prod Bundle
 dist
+package-lock.json
