@@ -6,11 +6,10 @@ const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 const WebpackPwaManifest = require("webpack-pwa-manifest");
 const CspHtmlWebpackPlugin = require("csp-html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
-const devServer = require("./devServer.js");
 const Package = require("./package.json");
 // Customize these
 const NAME = "Augmented Next";
-const LOGO = "./src/images/adamjenson.png";
+const LOGO = "./src/images/favicon.png";
 
 const isProd = process.argv[process.argv.indexOf("--mode") + 1] === "production";
 
@@ -35,8 +34,7 @@ module.exports = {
       directory: path.join(__dirname, "dist"),
     },
     compress: true,
-    port: 8080,
-    onAfterSetupMiddleware: devServer
+    port: 8080
   },
   module: {
     rules: [

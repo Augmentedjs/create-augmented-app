@@ -8,9 +8,9 @@ const { exec } = require("child_process");
 const packageJson = require("../package.json");
 
 const scripts = `
-  "start": "webpack-dev-server",
-  "dev": "webpack --mode development",
-  "build": "webpack --mode production",
+  "start": "webpack serve --mode development",
+  "dev": "webpack --mode development --progress",
+  "build": "webpack --mode production --progress",
   "test": "mocha --require @babel/register --require test/helper.js -c test/*Spec.js",
   "clean": "rm -rf node_modules",
   "reinstall": "npm run clean && npm install",
@@ -120,7 +120,7 @@ exec(
           copyFolderSync(path.join(__dirname, "../test"), `${process.argv[2]}/test`);
 
           console.info(`\x1b[1m\x1b[36mAll done!\nYour project is now started into ${process.argv[2]} folder,
-            refer to the README for the project structure.\nThank you for using Augmented.js!\x1b[0m`);
+            refer to the README for the project structure.\nThank you for using Augmented Next!\x1b[0m`);
         } catch(e) {
           console.error("\x1b[31mError\x1b[0m", e);
         }
