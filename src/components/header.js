@@ -1,23 +1,41 @@
 import { Header as BaseHeader } from "presentation-components";
-import { APP_NAME } from "../constants.js";
+import { LoginError } from "presentation-exceptions";
 
-const MENU = "menu";
-const PROGRESS = "progress";
+const AVATAR_IMAGE = "avatar",
+      AVATAR_EL = `#${AVATAR_IMAGE}`,
+      MENU = "menu",
+      PROGRESS = "progress",
+      NAME = "header",
+      MOUNT_POINT = `#${NAME}`,
+      LOGO = "logo",
+      USER = "user",
+      USER_EL = `#${USER}`;
+
+import anonymous from "../images/favicon.png";
 
 class Header extends BaseHeader {
-  constructor(options) {
-    if (!options) {
-      options = {};
-    }
-    options.el = "#header";
-    options.name = "header";
+  constructor(options = {}) {
+    options.el = MOUNT_POINT;
+    options.name = NAME;
     super(options);
-    this.template = /*HTML*/`
+    this.template = /*html*/
+     `<div class="username" id="${USER}"></div>
+      <figure data-${this.name}="${LOGO}" data-click="${LOGO}" class="${LOGO}" id="${AVATAR_IMAGE}"></figure>
+      <h1 class="appname">${APP_TITLE}</h1>
       <nav id="${MENU}"></nav>
-      <h1 class="appname">${APP_NAME}</h1>
-      <div class="user" id="user"></div>
-      <div id="${PROGRESS}" class="progress"></div>
-    `;
+      <div id="${PROGRESS}" class="${PROGRESS}"></div>`;
+  };
+
+  async render() {
+    await super.render();
+    return this;
+  };
+
+  async logo(e) {
+    e.preventDefault();
+
+
+    return this;
   };
 };
 

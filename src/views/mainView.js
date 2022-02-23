@@ -2,22 +2,20 @@ import { DirectiveView } from "presentation-decorator";
 import Header from "../components/header.js";
 import ProgressIndicator from "../components/indicator.js";
 import HamburgerMenu from "../components/hamburger.js";
-import { HEADER, SET_SUBTITLE, SET_INDICATOR } from "../messages.js";
+import { HEADER, SET_INDICATOR, DIALOG } from "../messages.js";
 
 class MainView extends DirectiveView {
   constructor() {
     super({
       "tagName": "article",
       "id": "app",
-      "name": "mainview",
-      "style": "main"
+      "name": "mainview"
     });
 
-    this.template = /*html*/`
-      <section id="header" class="header"></section>
+    this.template = /*html*/
+     `<section id="header" class="header"></section>
       <section id="main" class="main panel"></section>
-      <section id="dialogs" class="dialogs"></section>
-    `;
+      <section id="dialogs" class="dialogs"></section>`;
 
     this._header = new Header();
     if (!this._header) {
@@ -60,6 +58,7 @@ class MainView extends DirectiveView {
     }
 
     view = await this._menu.render();
+    this.mediator.observeColleagueAndTrigger(view, DIALOG, view.name);
     if (!view) {
       throw new Error("Error rendering hamburger menu!");
     }

@@ -2,10 +2,28 @@
   "presets": [
     ["@babel/preset-env", {
       "targets": {
-        "browsers": [ "chrome >= 80", "firefox >= 75", "safari >= 13" ]
+        "browsers": ["firefox >= 90", "chrome >= 90", "ios >= 14"]
       },
       "debug": true,
       "modules": false
-    }]
-  ]
+    }
+    ]
+  ],
+  "plugins": [
+    ["transform-class-properties", { "spec": true }],
+    "babel-plugin-remove-template-literals-whitespace"
+  ],
+  "comments": false,
+  "env": {
+    "production": {
+      "plugins": [
+        ["transform-remove-console", { "exclude": [ "error", "warn"] }]
+      ]
+    },
+    "development": {
+      "plugins": [
+        ["transform-remove-console", { "exclude": [ "debug", "info", "error", "warn"] }]
+      ]
+    }
+  }
 }
