@@ -1,17 +1,12 @@
 import { Header as BaseHeader } from "presentation-components";
-import { LoginError } from "presentation-exceptions";
 
 const AVATAR_IMAGE = "avatar",
-      AVATAR_EL = `#${AVATAR_IMAGE}`,
       MENU = "menu",
       PROGRESS = "progress",
       NAME = "header",
       MOUNT_POINT = `#${NAME}`,
       LOGO = "logo",
-      USER = "user",
-      USER_EL = `#${USER}`;
-
-import anonymous from "../images/favicon.png";
+      USER = "user";
 
 class Header extends BaseHeader {
   constructor(options = {}) {
