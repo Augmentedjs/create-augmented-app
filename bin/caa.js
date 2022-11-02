@@ -35,7 +35,7 @@ const copyFolderSync = (from, to) => {
  * @param {object} deps object key that we want to extract
  * @returns {string} a string of "dependencies@version"
  * that we can attach to an `npm i {value}` to install
- * every dep the exact version speficied in package.json
+ * every dep the exact version specified in package.json
  */
 const getDeps = deps =>
   Object.entries(deps)
